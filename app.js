@@ -193,5 +193,5 @@ dropdown.addEventListener('change', ()=>{
 
 
 pictureLayer.on("click", () => {
-  alert("Moszkva, Voros Ter");
+  alert("Moszkva, Voros Ter");//
 });
