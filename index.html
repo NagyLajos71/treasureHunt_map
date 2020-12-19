@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Leaflet.js files -->
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+      integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+      crossorigin=""
+    />
+    <script
+      src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+      integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+      crossorigin=""
+    ></script>
+
+    <title>Világtérkép</title>
+
+    <link rel="stylesheet" href="./style.css" type="text/css" />
+    <script src="./app.js" type="module" defer></script>
+    <script src="./questions.js" type="module" defer></script>
+  </head>
+
+  <body>
+    <div id="map"></div>
+    <div id="non-map">
+      <div id="zoom">ZOOM: x<span id="zoomLevel">15</span></div>
+      <!--shows current zoom level-->
+      <div class="mouseCoord" id="divMouseCoordLat"></div>
+      <!--shows mouse coordinates over the map-->
+      <div class="mouseCoord" id="divMouseCoordLng"></div>
+      <!--shows mouse coordinates over the map-->
+      <div class="slideDiv">
+        <div id="slideDivHeader">
+          <h2 id="slideDivHeaderH2"></h2>
+          <p id="slideDivHeaderP"></p>
+        </div>
+        <div id="flippingCardFrame">
+          <div class="card" id="flippingCardFront">
+            <img
+              src="./img/pic/Moscow.jpg"
+              alt="inserted image"
+              id="flippingImage"
+            />
+          </div>
+          <div class="card" id="flippingCardBack">
+            <h2>Tipp</h2>
+            <p id="tippP"></p>
+          </div>
+        </div>
+        <div id="slideDivMiniQuestion">
+          <p>
+            Ha kérsz a feladathoz további segítséget, akkor előbb meg kell
+            válaszold ezt a kérdést:
+          </p>
+          <label id='miniQuestionLabel' for="dropdown"
+            >Melyik dropdownen talalhato az Amazonas?</label
+          >
+          <select name="dropdown" id="dropdown">
+            <option hidden disabled selected value>-- valassz! --</option>
+            <option id='opt1' value=""></option>
+            <option id='opt2' value=""></option>
+            <option id='opt3' value=""></option>
+          </select>
+        </div>
+        <div id="slideDivNavigation">
+          <button>balra</button><button>jobbra</button>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

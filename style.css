@@ -1,0 +1,93 @@
+*{  
+    box-sizing: border-box;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    margin:0;
+    padding:0;
+    --boxShadow:15px 10px 15px rgba(128, 128, 128, 0.212);
+    --backgroundColor:rgba(255, 255, 255, 0.623)
+    
+}
+#map {/*AS PER LEAFLET DOCUMENTATION GIVING HEIGHT VALUE TO THE MAP IS COMPULSORY*/
+  height: 100vh;
+}
+#non-map{/*all contents that is not the leaflet map*/
+  border-radius:15px;
+}
+#zoom{/*showing the zoom value*/
+    position:absolute;
+    top:0%;
+    left:50%;
+    transform: translate(-50%);
+    background-color: var( --backgroundColor);
+    margin:5px;
+    padding:5px 10px;
+    z-index:500;
+    box-shadow: var(--boxShadow);
+}
+
+.mouseCoord{/*2 divs to show mouse coordinates over the map*/
+    position:absolute;
+    font-size: 0.7rem;
+    transform: translate(-50%, -50%);
+    z-index:500;
+    pointer-events: none;
+    font-size: 10px;
+}
+
+.slideDiv{/*this holds the tasks to solve*/
+  position: absolute;
+  top:10vh;
+  width:50vw;
+  height:85vh;
+  margin-left: -200px;
+  box-shadow: var(--boxShadow);
+  z-index:1000;
+  background-color:var( --backgroundColor);
+  transition: 1500ms;
+  overflow: auto;
+  display:grid;
+  grid-template-rows: 2fr 5fr 2fr 1fr;
+}
+/*main components of sliding div*/
+#slideDivHeader{/*1 of 4 main component of sliding div*/
+  grid-row:1
+}
+#flippingCardFrame{/*2 of 4 main component of sliding div*/
+  grid-row:2;/*this is the 'frame' for the front and the back side of the flipping card*/
+  cursor: pointer;
+  height:100%;
+  border:1px solid black;
+}
+#slideDivMiniQuestion{/*3 of 4 main component of sliding div*/
+  grid-row:3
+}
+#slideDivNavigation{/*4 of 4 main component of sliding div*/
+  grid-row:4
+}
+#flippingCardFrame img{
+  width:100%;
+  transition-duration:1400ms;
+}
+#flippingCardFrame img:hover{
+  transform: scale(1.1);
+  overflow: hidden;
+}
+.card{/*both back and font face of the flipping card*/
+  width: 100%;
+  overflow: hidden;
+  backface-visibility: hidden;
+  position: absolute;
+  transition: transform .6s linear;
+}
+#flippingCardFront{
+  transform: perspective(600px) rotateY(0deg);/*initial starting point*/
+}
+#flippingCardBack{
+  transform: perspective(600px) rotateY(180deg);/*initial starting point*/
+}
+/* #flippingCard:hover > #flippingCardFront{
+  transform: perspective(600px) rotateY(-180deg);
+}
+#flippingCard:hover > #flippingCardBack{
+  transform: perspective(600px) rotateY(0deg);
+} */
