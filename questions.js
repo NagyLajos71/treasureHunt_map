@@ -1,14 +1,25 @@
 const mainQuestions=[
 {id:0,
-    task:'Keresd meg a képet!',
-    taskText:'Valahol a nagyvilágban, egy titkos helyen elrejtettem ezt a képet. Keresd meg, és ha megtaláltad, kattints rá! Ez egy olyan játék, ahol csalni szabad! Nyugodtan nézz utána bárhol, vagy akar keress rá a Google segítségével, ha nem megy fejből a megoldás!',
+    task:'Vörös tér',
+    taskText:'A feladatod, hogy keresd meg a képet! Valahol a nagyvilágban, egy titkos helyen elrejtettem ezt a képet. Keresd meg, és ha megtaláltad, kattints rá! Ez egy olyan játék, ahol csalni szabad! Ha elakadsz, nyugodtan nézz utána bárhol, kerdezd meg valakitol, vagy akar keress rá a Google segítségével, ha nem menne fejből a megoldás!',
     imgSrc:'./img/pic/Moscow.jpg',
     imgBounds:[[55.753, 37.62],[55.756, 37.628]],
-    tipp:'Ez a fotó egy olyan varosban készült, ami a világ legnagyobb területű országának a fővárosa. Ez az ország olyan nagy, hogy két kontinensen terül el: Európában és Ázsiaban. Az emberek itt cirill betűkkel írnak, és az ország nevet azzal az írásmóddal így kell leírni: Россия, kiejtése pedig : Rosszija. Persze, magyarul maskepp hivjuk az orszagot. Igy mar tudod, hogy melyik lehet, es hogy hivjak a fovarosat, ahol elrejtettem a kepet? A kepen lathato voros szinu varat KREML-nek hivjak, az elotte talalhato tér pedig a Vörös tér. Az eloterben lathato jellegzetes, hagymakupolas templom neve Vaszilij Blazsennij-szekesegyhaz. A tér kozepen lathato voros kockaszeru epulet pedig a Lenin-mauzoleum. Lenin az orszag egyik hires vezetoje volt. Amikor meghalt, testet bebalzsamoztak, és ebben az épületben állították ki, hogy aki meg akarja őt nézni, az akar most is láthassa! az epuletben allitottak ki, hogy aki meg akarja ot nezni, az akar most is lathassa!',
+    tipp:'Ez a fotó egy olyan varosban készült, ami a világ legnagyobb területű országának a fővárosa. Ez az ország olyan nagy, hogy két kontinensen terül el: Európában és Ázsiaban. Az emberek itt cirill betűkkel írnak, és az ország nevet azzal az írásmóddal így kell leírni: Россия, a kiejtése pedig : Rosszíjá. Persze, magyarul másképp hivjuk az országot. Sejted mar,  hogy hol rejtettem el a kepet? A kepen lathato voros szinu varat KREML-nek hivjak, az elotte talalhato tér pedig a hires Vörös tér. Az eloterben lathato jellegzetes, hagymakupolas templom neve Vaszilij Blazsennij-szekesegyhaz. A tér kozepen lathato voros kockaszeru epulet pedig a Lenin-mauzoleum. Lenin az orszag egyik hires vezetoje volt. Amikor meghalt, testet bebalzsamoztak, és ebben az épületben állították ki, hogy aki meg akarja őt nézni, az akar most is láthassa!',
+    videoSrc:'https://www.youtube.com/embed/rAxhaiNNfRk',
     solved:false
-}];
+},
+{id:1,
+    task:'Badacsony',
+    taskText:'A feladatod, hogy keresd meg a képet, amit valahol a Europágban, egy titkos helyen elrejtettem! Ha megtaláltad, kattints rá!',
+    imgSrc:'./img/pic/balatonFelvidek.jpg',
+    imgBounds:[[46.802, 17.45],[46.81, 17.47]],
+    tipp:'Ezek a hegyek egy reges-regi vulkan peremenek megmaradt emlekei. Latod a kepen, hogy mekkora hatalmas krater volt itt hajdanan? Kepzelj oda egy kort, ami osszekoti az eloterben levo ket hegyet a tavolival ugy, hogy a kor kozepe valahol a hegyek kozott volgyben lesz. Szerencsere mar 2,5 millio eve mar nem tor ki semmifele tuzhanyo ezen a videken, es a tudosok nem is szamitanak ujabb vulkankitoresre. A hegyek kornyeke hires bortermo videk, a kozeli topart pedig (a kep bal oldalan, kozepen latod a to egy apro reszletet, mint egy ezust csikot) kedvelt nyaralohely. A tavolban latsz egy ezust csikot. Az ott Közép-Európa legnagyobb tava. Ez egy olyan tampont, amin erdemes elindulnod. Vajon melyik to Közép-Európa legnagyobb tava? Ezek a hegyek ott allnak a toparthoz egesz kozel. A tavoli hegynek jol ismert neve van. Te is biztosan hallottad mar. Nem mondhatom meg, de azert nehany betut elarulok belole _ A_A_S_N_ Ez a kep is csak akkor latszik a terkepen, ha legalabb 14-szeres nagyitast hasznalsz. ',
+    videoSrc:'https://www.youtube.com/embed/uWogefb4RjM',
+    solved:false
+},
+];
 
-const miniQuestions=[
+const helperQuestions=[
 {id:0,
     question:'Melyik kontinensen található az Amazonas-folyó?',
     questionType:'folyó',
@@ -237,9 +248,9 @@ const miniQuestions=[
     question:'Mi Fehéroroszország fővárosa?',
     questionType:'város',
     answ1:'nincs is ilyen ország',
-    answ2:'Minsk',   
+    answ2:'Minszk',   
     answ3:'Moszkva',
-    answCorr:'Minsk'
+    answCorr:'Minszk'
 },
 {id:29,
     question:'Mi Kolumbia fővárosa?',
@@ -269,4 +280,4 @@ const miniQuestions=[
 
 
 
-export { mainQuestions, miniQuestions };
+export { mainQuestions, helperQuestions };

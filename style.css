@@ -1,24 +1,37 @@
 *{  
     box-sizing: border-box;
     font-family: Georgia, 'Times New Roman', Times, serif;
+    text-align: justify;
+    font-size:18px;
     margin:0;
     padding:0;
     --boxShadow:15px 10px 15px rgba(128, 128, 128, 0.212);
-    --backgroundColor:rgba(255, 255, 255, 0.623)
+    --bgclr:rgba(255, 255, 255, 0.4);
+    --br15:15px;
+    --blur:blur(5px);
     
+}
+h2{
+  font-size:1.6rem;
+  text-align: center;}
+h2, p, label{
+  margin:15px;
+}
+#slideDiv-backSide p{
+  margin:3vw;
+  font-size:1.2rem;
+  line-height: 1.6;
 }
 #map {/*AS PER LEAFLET DOCUMENTATION GIVING HEIGHT VALUE TO THE MAP IS COMPULSORY*/
   height: 100vh;
-}
-#non-map{/*all contents that is not the leaflet map*/
-  border-radius:15px;
 }
 #zoom{/*showing the zoom value*/
     position:absolute;
     top:0%;
     left:50%;
     transform: translate(-50%);
-    background-color: var( --backgroundColor);
+    background-color: var( --bgclr);
+    font-weight: 900;
     margin:5px;
     padding:5px 10px;
     z-index:500;
@@ -33,61 +46,87 @@
     pointer-events: none;
     font-size: 10px;
 }
-
-.slideDiv{/*this holds the tasks to solve*/
+/*this div can slide in/out + rotate 180deg*/
+#slideDiv{/*this holds the tasks to solve*/
   position: absolute;
   top:10vh;
+  left:-45vw;
   width:50vw;
   height:85vh;
-  margin-left: -200px;
-  box-shadow: var(--boxShadow);
   z-index:1000;
-  background-color:var( --backgroundColor);
-  transition: 1500ms;
-  overflow: auto;
-  display:grid;
-  grid-template-rows: 2fr 5fr 2fr 1fr;
+  border-radius: var(--br15);
+  transition: 2500ms;
+  transition-timing-function: ease;
 }
-/*main components of sliding div*/
-#slideDivHeader{/*1 of 4 main component of sliding div*/
-  grid-row:1
+.slideInOut{/* on click this class is toggled to achieve the slide in/out effect*/
+  transform: translateX(65vw);
 }
-#flippingCardFrame{/*2 of 4 main component of sliding div*/
-  grid-row:2;/*this is the 'frame' for the front and the back side of the flipping card*/
-  cursor: pointer;
-  height:100%;
-  border:1px solid black;
-}
-#slideDivMiniQuestion{/*3 of 4 main component of sliding div*/
-  grid-row:3
-}
-#slideDivNavigation{/*4 of 4 main component of sliding div*/
-  grid-row:4
-}
-#flippingCardFrame img{
-  width:100%;
-  transition-duration:1400ms;
-}
-#flippingCardFrame img:hover{
-  transform: scale(1.1);
-  overflow: hidden;
-}
-.card{/*both back and font face of the flipping card*/
+/*slide div has 2 sides - only one is visible at a time */
+#slideDiv-frontSide, #slideDiv-backSide{
   width: 100%;
+  height: 100%;
   overflow: hidden;
   backface-visibility: hidden;
   position: absolute;
-  transition: transform .6s linear;
+  transition: transform 900ms linear;
+  box-shadow: var(--boxShadow);
 }
-#flippingCardFront{
-  transform: perspective(600px) rotateY(0deg);/*initial starting point*/
-}
-#flippingCardBack{
-  transform: perspective(600px) rotateY(180deg);/*initial starting point*/
-}
-/* #flippingCard:hover > #flippingCardFront{
-  transform: perspective(600px) rotateY(-180deg);
-}
-#flippingCard:hover > #flippingCardBack{
+#slideDiv-frontSide{
   transform: perspective(600px) rotateY(0deg);
-} */
+}
+#slideDiv-backSide{
+  background: var( --bgclr);
+  backdrop-filter: var(--blur);
+  border-radius: var(--br15);
+  transform: perspective(600px) rotateY(180deg);
+}
+#slideDiv-frontSide{/*this side contains the main task, image, and helper question*/
+  display:grid;
+  grid-template-rows: 1fr 4fr 1fr;
+  grid-template-columns:9fr 1fr;
+  grid-gap:5px;
+  
+}
+#slideDiv-frontSide-header{/*shows the main task to solve*/
+  grid-row:1;
+  grid-column:1;
+  background: var( --bgclr);
+  backdrop-filter: var(--blur);
+  border-radius: var(--br15);
+}
+#slideDiv-frontSide-image{/*shows an image related to main task*/
+  grid-row:2;
+  grid-column:1;
+  border-radius: var(--br15);
+  overflow: hidden;/*necessary for on hover zoom in effect plus for fitting the image (object fit:cover)*/
+}
+#slideDiv-frontSide-helperQuestion{/*answering the helper question unlocks the backside of the sliding div with additional info*/
+  grid-row:3;
+  grid-column:1;
+  border-radius: var(--br15);
+  background: var( --bgclr);
+  backdrop-filter: var(--blur);
+}
+#slideDiv-frontSide-clickableEdge{/*clicking on the edge of the sliding div makes it slide in-out*/
+  grid-row:1/4;
+  grid-column:2;
+  border-radius: var(--br15);
+  background-color: rgba(205, 134, 63, 0.322);
+}
+#mainPicture{
+  width:100%;
+  height:100%;
+  object-fit: cover;/*reference: https://css-tricks.com/almanac/properties/o/object-fit/   */
+  transition: 3000ms ease-out;/*zoom in effect */
+}
+#mainPicture:hover{/*zoom in effect; overflow hidden is set up on parent div*/
+  transform: scale(1.2);
+}
+#slideDiv-backSide iframe{
+  display:block;
+  margin:0 auto;
+}
+#selectionFeedbackIcon{
+  width:15px;
+  visibility: hidden;  
+}

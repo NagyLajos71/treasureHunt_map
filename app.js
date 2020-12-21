@@ -1,8 +1,8 @@
-import { mainQuestions, miniQuestions } from "./questions.js";
+import { mainQuestions, helperQuestions } from "./questions.js";
 
 //LEAFLET MAP----------------------------------------------------
 const coordBudapest = [47.499, 19.044]; //initial center
-const coordMoscow = [55.75, 37.62];
+//const coordMoscow = [55.75, 37.62];
 const spanZoomLevel = document.querySelector("#zoomLevel");
 const initialZoomLevel = parseInt(spanZoomLevel.textContent); //intital zoom level
 
@@ -11,7 +11,7 @@ const map = L.map("map", {
   zoomControl: true,
   minZoom: 1,
   maxZoom: 18,
-}).setView(coordMoscow, initialZoomLevel); //setView (lon,lat, zoom level)
+}).setView([46.80, 17.45], initialZoomLevel); //setView (lon,lat, zoom level)
 
 // TRICK: RESISTING BEING DRAGGED OUT OF BOUNDS
 const southWest = L.latLng(-89.98155760646617, -180);
@@ -60,18 +60,22 @@ layerOptions.addTo(map);
 
 //SHOW SCALE (metrics only)
 L.control.scale({ imperial: false }).addTo(map);
+//LEAFLET MAP----------------------------------------------------
+
+//NON-MAP--------------------------------------------------------
 
 //SHOW CURRENT ZOOM LEVEL
 map.on("zoomend", () => {
   spanZoomLevel.textContent = map.getZoom();
 });
 
+//MOUSE COORDINATES++++++++++++++
 //CALCULATE MOUSE COORDINATES ON MOUSEMOVE
 const showMouseCoordinatesLat = document.querySelector("#divMouseCoordLat");
 const showMouseCoordinatesLng = document.querySelector("#divMouseCoordLng");
-map.addEventListener("mousemove", function (ev) {
-  let mouseLatCoord = ev.latlng.lat;
-  let mouseLngCoord = ev.latlng.lng;
+map.addEventListener("mousemove", function (e) {
+  let mouseLatCoord = e.latlng.lat;
+  let mouseLngCoord = e.latlng.lng;
   //SHOW COORDINATES ONLY INSIDE BOUNDS
   if (Math.abs(mouseLatCoord) < 85 && Math.abs(mouseLngCoord) < 180) {
     showMouseCoordinatesLat.textContent = `${mouseLatCoord.toFixed(2)}°`;
@@ -95,6 +99,7 @@ document.addEventListener("mousemove", (e) => {
     showMouseCoordinatesLng.textContent = "";
   }
 });
+//MOUSE COORDINATES++++++++++++++
 
 //FLAG FOR BUDAPEST LOCATION
 const flagIcon = L.icon({
@@ -107,54 +112,52 @@ let marker1 = L.marker(coordBudapest, { icon: flagIcon });
 marker1.addTo(map);
 
 //DIV SLIDE IN-OUT
-const slideDiv = document.querySelector(".slideDiv");
-slideDiv.addEventListener("click", (e) => {
-  let slideDivLeftMarginValue = window.getComputedStyle(slideDiv).marginLeft;
-  if (slideDivLeftMarginValue === "-200px") {
-    slideDiv.style.marginLeft = "50px";
-  } else {
-    slideDiv.style.marginLeft = "-200px";
+const slideDiv = document.querySelector("#slideDiv");
+const slideDivFrontSide=slideDiv.querySelector('#slideDiv-frontSide');
+const slideDivBackSide=slideDiv.querySelector('#slideDiv-backSide');
+const slideDivFrontSideClickableEdge=slideDiv.querySelector('#slideDiv-frontSide-clickableEdge');
+const slideDivFrontSideImage=slideDiv.querySelector('#slideDiv-frontSide-image');
+let isFlippingAllowed=false;//answering helper question will unlock this
+
+slideDivFrontSideClickableEdge.addEventListener('click',(e)=>{
+  slideDiv.classList.toggle('slideInOut')
+});
+slideDivFrontSideImage.addEventListener('click',(e)=>{
+  if(isFlippingAllowed){
+    slideDivFrontSide.style.transform='perspective(600px) rotateY(-180deg)';
+    slideDivBackSide.style.transform='perspective(600px) rotateY(0deg)';
   }
+
+});
+slideDivBackSide.addEventListener('click',(e)=>{
+  slideDivFrontSide.style.transform='perspective(600px) rotateY(0deg)';
+  slideDivBackSide.style.transform='perspective(600px) rotateY(180deg)';
 });
 
-//FLIPPING IMAGE CLICK
-let flipAllowed = false;
-let isFlipped=false
-const flippingCardFrame = document.querySelector("#flippingCardFrame");
-const flippingCardFront = document.querySelector("#flippingCardFront");
-const flippingCardBack = document.querySelector("#flippingCardBack");
 
-flippingCardFrame.addEventListener("click", (e) => {
-  if (flipAllowed) {
-    if(!isFlipped){
-      flippingCardFront.style.transform = "perspective(600px) rotateY(-180deg)";
-      flippingCardBack.style.transform = "perspective(600px) rotateY(0deg)";
-    }else{
-      flippingCardFront.style.transform = "perspective(600px) rotateY(0deg)";
-      flippingCardBack.style.transform = "perspective(600px) rotateY(180deg)";
-    }
-    isFlipped=!isFlipped;
-  }
-});
+
 
 //GAME LOGIC
-let currentMain=0;//TRACKING THE MAIN TASKS
+let counterMainQuestion=1;//TRACKING THE MAIN TASKS
 
 //ADDING QUESTION AND ADDL HELP TO SLIDING DIV
-const slideDivHeaderH2=slideDiv.querySelector('#slideDivHeaderH2');
-const slideDivHeaderP=slideDiv.querySelector('#slideDivHeaderP');
-const tippP=slideDiv.querySelector('#tippP');
-slideDivHeaderH2.textContent=mainQuestions[currentMain].task;
-slideDivHeaderP.textContent=mainQuestions[currentMain].taskText;
-tippP.textContent=mainQuestions[currentMain].tipp;
-//ADDING IMAGE TO SLIDING DIV
-let pictureSource = mainQuestions[currentMain].imgSrc;
-let pictureBounds= mainQuestions[currentMain].imgBounds;
+const slideDivHeaderH2=slideDiv.querySelector('#slideDivHeaderH2');//Main question title
+const slideDivHeaderP=slideDiv.querySelector('#slideDivHeaderP');//main question addl info
+const tippP=slideDiv.querySelector('#tippP');//main question extended info. It is unlocked only if the helper question is solved! Located on the backside of the sliding div.
+slideDivHeaderH2.textContent=mainQuestions[counterMainQuestion].task;//assigning question from question.js file
+slideDivHeaderP.textContent=mainQuestions[counterMainQuestion].taskText;//assigning question from question.js file
+tippP.textContent=mainQuestions[counterMainQuestion].tipp;//this is on the backside; assigning question from question.js file
 
+//ADDING IMAGE TO MAP DIV -THE MAIN TASK IS TO FIND THIS 
+let pictureSource = mainQuestions[counterMainQuestion].imgSrc;
+let pictureBounds= mainQuestions[counterMainQuestion].imgBounds;
 let pictureLayer = L.imageOverlay(pictureSource, pictureBounds, {
   opacity: 1,
   interactive: true,
 });
+//ADDING PICTURE TO THE SLIDING DIV
+const mainPicture=document.querySelector('#mainPicture');
+mainPicture.src=pictureSource
 //SET UP ZOOM DEPENDING PICTURE VISIBILITY
 map.on("zoomend", function () {
   if (map.getZoom() > 13) {//the image will be visible only above zomm level #13
@@ -163,32 +166,40 @@ map.on("zoomend", function () {
     pictureLayer.remove(map);
   }
 });
-//ADDING MINI QUESTION
 
-function RandomGenerator(minNbr, maxNbr){//min=0,max=miniQuestions.length included
+//ADDING HELPER QUESTION (if solved, it unlocks the backside of the sliding div with more information)
+const helperDropdown=document.querySelector('#helperDropdown');
+const helperQuestionLabel=document.querySelector('#helperQuestionLabel');
+const option1=document.querySelector('#option1');//dropdown option: value comes from questions.js /helperQuestions
+const option2=document.querySelector('#option2');
+const option3=document.querySelector('#option3');
+const teaserVideo=document.querySelector('#teaserVideo');
+const selectionFeedbackIcon=document.querySelector('#selectionFeedbackIcon');//little green icon appears if the helper answer is correct
+
+function RandomGenerator(minNbr, maxNbr){//generate random number; use to select random helper question
   return Math.floor(Math.random()*(maxNbr-minNbr+1))+minNbr
-}
-let currentMini=RandomGenerator(0,miniQuestions.length)
-const dropdown=document.querySelector('#dropdown');
-const miniQuestionLabel=document.querySelector('#miniQuestionLabel');
-const opt1=document.querySelector('#opt1');
-const opt2=document.querySelector('#opt2');
-const opt3=document.querySelector('#opt3');
-let correctMiniAnswer;
-console.log(currentMini)
-miniQuestionLabel.textContent=miniQuestions[currentMini].question;
-opt1.value=miniQuestions[currentMini].answ1;
-opt2.value=miniQuestions[currentMini].answ2;
-opt3.value=miniQuestions[currentMini].answ3;
-opt1.textContent=miniQuestions[currentMini].answ1;
-opt2.textContent=miniQuestions[currentMini].answ2;
-opt3.textContent=miniQuestions[currentMini].answ3;
-correctMiniAnswer=miniQuestions[currentMini].answCorr;
-dropdown.addEventListener('change', ()=>{
-  console.log(dropdown.value)
-  if(dropdown.value===correctMiniAnswer){
-    console.log('kitalaltad!!!');
-    flipAllowed=true;}
+};
+
+let randomHelperQuestion=RandomGenerator(0,helperQuestions.length);//generating random number to select one helper question
+
+helperQuestionLabel.textContent=helperQuestions[randomHelperQuestion].question;//assigning helper question 
+option1.value=helperQuestions[randomHelperQuestion].answ1;//assigning helper question dropdown answer
+option2.value=helperQuestions[randomHelperQuestion].answ2;//assigning helper question dropdown answer
+option3.value=helperQuestions[randomHelperQuestion].answ3;//assigning helper question dropdown answer
+option1.textContent=helperQuestions[randomHelperQuestion].answ1;//assigning helper question dropdown answer
+option2.textContent=helperQuestions[randomHelperQuestion].answ2;//assigning helper question dropdown answer
+option3.textContent=helperQuestions[randomHelperQuestion].answ3;//assigning helper question dropdown answer
+let correctHelperAnswer=helperQuestions[randomHelperQuestion].answCorr;//the user`s selection will be matched to this value
+teaserVideo.src=mainQuestions[1].videoSrc;
+
+helperDropdown.addEventListener('change', ()=>{
+  if(helperDropdown.value===correctHelperAnswer){
+    isFlippingAllowed=true;
+    selectionFeedbackIcon.style.visibility='visible'}
+    else{
+      isFlippingAllowed=false;
+      selectionFeedbackIcon.style.visibility='hidden'
+    }
 })
 
 

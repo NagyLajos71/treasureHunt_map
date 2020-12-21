@@ -33,41 +33,35 @@
       <!--shows mouse coordinates over the map-->
       <div class="mouseCoord" id="divMouseCoordLng"></div>
       <!--shows mouse coordinates over the map-->
-      <div class="slideDiv">
-        <div id="slideDivHeader">
-          <h2 id="slideDivHeaderH2"></h2>
-          <p id="slideDivHeaderP"></p>
-        </div>
-        <div id="flippingCardFrame">
-          <div class="card" id="flippingCardFront">
-            <img
-              src="./img/pic/Moscow.jpg"
-              alt="inserted image"
-              id="flippingImage"
-            />
+      <div id="slideDiv"><!--this div can slide in/out plus flip 180deg-->
+        <div id="slideDiv-frontSide"><!--this side is visible at the first time-->
+          <div id="slideDiv-frontSide-header"><!--here is the brief task-->
+            <h2 id="slideDivHeaderH2"></h2>
+            <p id="slideDivHeaderP"></p>
           </div>
-          <div class="card" id="flippingCardBack">
-            <h2>Tipp</h2>
-            <p id="tippP"></p>
+          <div id="slideDiv-frontSide-image"><!--this is the hero image"shows what to locate on the map-->
+            <img id="mainPicture" alt="picture to find" />
           </div>
+          <div id="slideDiv-frontSide-helperQuestion"><!--additional question; if answred it unlocks more details of the job-->
+            <p>
+              Ha a feladathoz szükséged van további segítségre, ahhoz előbb meg
+              kell válaszold ezt a kérdést. Ha jó választ adsz, a fenti képre
+              kattintva további segítséget kapsz!
+            </p>
+            <label id="helperQuestionLabel" for="helperDropdown"></label><!--3 options to select from; the questions are stored in question.js file-->
+            <select name="helperDropdown" id="helperDropdown">
+              <option hidden disabled selected value>-- válassz! --</option>
+              <option id="option1" value=""></option>
+              <option id="option2" value=""></option>
+              <option id="option3" value=""></option>
+            </select>
+            <img id='selectionFeedbackIcon' src='./img/icon/goodAnswer.png' alt='good answer'><!--little green icon appears if the dropdown selection is correct-->
+          </div>
+          <div id="slideDiv-frontSide-clickableEdge"></div><!--clicking on this edge causes the div slide in or out-->
         </div>
-        <div id="slideDivMiniQuestion">
-          <p>
-            Ha kérsz a feladathoz további segítséget, akkor előbb meg kell
-            válaszold ezt a kérdést:
-          </p>
-          <label id='miniQuestionLabel' for="dropdown"
-            >Melyik dropdownen talalhato az Amazonas?</label
-          >
-          <select name="dropdown" id="dropdown">
-            <option hidden disabled selected value>-- valassz! --</option>
-            <option id='opt1' value=""></option>
-            <option id='opt2' value=""></option>
-            <option id='opt3' value=""></option>
-          </select>
-        </div>
-        <div id="slideDivNavigation">
-          <button>balra</button><button>jobbra</button>
+        <div id="slideDiv-backSide"><!--this side is not visible at the first time; the user can unlock the access answering the helper question; if answered correctly, clicking on the hero image will reveal this side-->
+          <p id="tippP"></p><!--clicking on this side will flip back to the front side-->
+          <iframe id='teaserVideo' allowfullscreen width="420" height="315"></iframe><!--teaser youtube video about the topic-->
         </div>
       </div>
     </div>
