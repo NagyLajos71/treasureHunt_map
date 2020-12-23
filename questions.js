@@ -21,7 +21,7 @@ const mainQuestions=[
     task:'香港, a nyüzsgő kínai metropolisz',
     taskText:'Remelém, tudsz kínai írásjeleket olvasni? Mert anélkül nehéz lesz kitalálnod, hogy hova rejtettem el ezt a képet a Viktória-öbölről! Ha nem tudsz, akkor se add fel, inkább válaszold meg a lenti kérdést, és a hátoldalon elárulom neked a város nevét!',
     imgSrc:'./img/pic/Hong_Kong.jpg',
-    imgBounds:[[22.28, 114.29],[22.29, 114.22]],
+    imgBounds:[[22.30, 114.195],[22.308, 114.22]],
     tipp:'Hong Kong, ez a nyüzsgő, sosem alvó metropolisz Kína déli részén, a Dél-kínai-tenger partján, a Gyöngy-folyó tokolatában található. Korábban angol gyarmat volt, most pedig Kína különleges közigazgatási területe. Nézd meg ezt a videót, hogy egy kis ízelítőt kapj a város hangulatából!',
     videoSrc:'https://www.youtube.com/embed/gYO1uk7vIcc',
     solved:false
@@ -30,7 +30,7 @@ const mainQuestions=[
     task:'a világ teteje',
     taskText:'A feladatod az, hogy megkeresd a világ tetejét, ezt a 8848 méter magas hegycsúcsot!',
     imgSrc:'./img/pic/Mount_Everest.jpg',
-    imgBounds:[[27.82, 86.84],[27.85, 86.90]],
+    imgBounds:[[28.01, 86.93],[27.99, 86.965]],
     tipp:'A világ legmagasabb hegye a Himalájában, Nepál és Kína határvidékékén található. A közismert neve Mount Everest, de a helyiek Csomolungmának nevezik. Ez a hegy  olyan magas, hogy a csúcs közelében már alig van oxigén, ezert a hegymászóknak rendkívül nehéz ide feljutniuk. A videó is egy expedíció csúcstámadását mutat be, ahogy a hegymászók küszködve, zihálva végül felérnek a világ tetejére.',
     videoSrc:'https://www.youtube.com/embed/NhBzhi9jPFs',
     solved:false
@@ -39,9 +39,18 @@ const mainQuestions=[
     task:'a Titanic roncsai',
     taskText:'A feladatod most az lesz, hogy találj meg egy elsullyedt hajot az óceán mélyén!',
     imgSrc:'./img/pic/Titanic.jpg',
-    imgBounds:[[27.82, 86.84],[27.85, 86.90]],
+    imgBounds:[[41.2, -49.35],[40.9, -48.7]],
     tipp:'Hallottál már az elsüllyedt Titanicról? Ez egy szerencsétlenül járt hajó neve, amiről a kortársai azt tartották, mint aztán kiderült, alaptalanul, hogy elsüllyeszthetetlen. Az volt a legelső és egyben az utolsó útja, amikor elindult az angliai Southampton kikötőjéből New Yorkba, és megtörtént vele a szörnyű tragédia. Sajnos a nyílt óceánon nekiütközött egy hatalmas jéghegynek. A baleset olyan hatalmas lyukat ütött a hajó oldalán, hogy akármit is tartottak róla, az mégiscsak elsüllyedt, és 1500 embert vitt magával a hullámsírba. A hajó roncsai azóta is a tengerfenéken pihennek. A kutatóknak sikerült megtalálni a helyszínt, ami az Atlanti-óceánban van, kb. 600 kilométerre dél-dél-keleti irányban Újfundland partjaitól. A Titanic roncsainak koordinátai a következők: 41°, -49°. Ha még nem találkoztál ilyen jelöléssel, ez az úgynevezett koordináta rendszer. A térképészek ezt használják arra, hogy földrajzi helyeket pontosan beazonosítsanak. Láttál már olyan térképet, amire négyzetrács-szerű vonalak voltak rárajzolva? Na, az például ugyanez a koordináta rendszer. Úgy működik, hogy képzeletbeli vízszintes és függőleges vonalakkal hálózzak be az egész térképet. Ezeket a vonalakat számokkal jelölik. A koordináta első száma jelöli a vízszintes vonalnak a számát, a második pedig a függőlegesét. Ahhoz, hogy megtaláld a hajó roncsait, ennél többet most nem is kell értened a koordináta rendszerhez, ugyanis kapsz tőlem további segítséget. Talán már észrevetted, ahogy mozgatod a térkép fölött az egeret, az egér mutató mellett két kis szám látható. Mi ez a két szám? Hát annak a földrajzi pontnak a koordinátai, ami fölött a mutató éppen tartózkodik. Próbáld ki azt, ha függőlegesen mozgatod az egeret, akkor csak az első szám változik. Ha pedig balról jobbra, jobbról balra, akkor meg a második. Ha meg összevissza, akkor mindkettő, ahogy újabb és újabb koordináta pontok fele viszed az egeret. Hogy megtaláld a roncsokat a végtelen nagy Atlanti-óceánban, próbáld meg azt, hogy lekicsinyíted a térképed x3, x4 vagy x5-szörös nagyításra. Aztán megkeresed rajta Angliát és az Egyesült Államokat. Miért éppen ezt a két országot? Mert azt tudjuk, hogy a hajó az egyikből elindult, a másikba pedig el akart jutni, tehát valahol e kettő közötti területen vezetett át a végzetes útja. Kérlek, mindjárt állítsd is be a térképen középre ezt a területet, ami egyébként még így is hatalmas régió, de legalább már tudjuk, hogy körülbelül hol kell keresnünk a hajóroncsot. Amit így látsz magad előtt a térképen, az az Atlanti-óceán északi medencéje. Ez a hatalmas víztömeg választja el Európát és Észak-Amerikát egymástól, ebben kell tovább keresnünk a hajó roncsait. Ha ezzel idáig megvagy, akkor kezd el az egeredet óvatosan mozgatni függőlegesen, és figyeld meg, hogy az egér mutató mellett az első szám hogyan változik. Ha felfele mozgatod, a szám növekszik, ha lefele, akkor pedig csökken. Most tedd meg azt, hogy addig mozgatod, amíg meg nem találod a 41-es számot. Ha ez megvan, akkor próbáld meg vízszintesen mozgatni az egeret. Balról jobbra, jobbról balra. Most a második számnak kell folyamatosan változnia. Az egeret addig mozgasd, amíg nem látod második számként a mínusz 49-et, ügyelve arra, hogy lehetőleg az első szám se változzon meg közben. Ha pontosan beállítottál mindent, és az egér mutató mellett azt látod, hogy 41°, -49°, akkor már csak bele kell nagyítanod a térképbe, és előbukkan a keresett hajóroncs! A videó egy számítógépes szimuláción mutatja be, hogy süllyedt el a Titanic.',
     videoSrc:'https://www.youtube.com/embed/FSGeskFzE0s',
+    solved:false
+},
+{id:5,
+    task:'ez őrület!',
+    taskText:'Mindenképp látnod kell a videót! Egyszerűen megáll az ész! Van benne egy vagány krapek, aki olyan meredek lejtőkön száguldozik a biciklijével, ahol mások síelnek! Még a rendőröknek sem sikerül elcsípniük, olyan ügyesen megy vele!',
+    imgSrc:'./img/pic/mountainBike.jpg',
+    imgBounds:[[47.39, 12.617],[47.345, 12.66]],
+    tipp:'Ez lesz aztán az igazi nyomozós feladat! Ismét egy helyszínt kell megtalálnod, ezúttal azt, ahol ez a filmben látható őrült fickó száguldozott a biciklijével. Nézd végig a videót, és próbálj meg apró részletekből rájönni, hogy hol történt meg ez a kalandos eset! Ha sikeresen kitaláltad a helyszínt, csak meg kell keresned  a térképen, és ott már látni fogod a fényképet is, amire rá kell kattintanod. Annyit persze segítek, hogy ez a film egy síparadicsomban játszódik, tél kellős közepén, amikor ott éppen mindenki síel. A nyomozás során  az egyik támpont talán az lehet, hogy a síliftekre mindig ki van írva a nevük. Szerencsére több liftet is mutatnak a filmen egész közelről, és ha odafigyelsz, el is tudod olvasni a nevüket. Lehet, hogy ha ezekre rákeresel az interneten, úgy könnyen megtalálod magát a síparadicsomot is, ahonnan ezek indulnak. Van egy olyan jelenet is a filmben, amikor a fickó olyan gyorsan száguldozik a lejtőn, hogy a rendőrségi traffipax lefényképezi. Ha sikerül annál a pontnál megállítanod a videót, amikor egy pillanatra mutatják a fényképét, azon rajta van, hogy mennyivel száguldozott, no meg a kép aljára oda van írva a síparadicsom neve is. Ennyi segítség ugye elég lesz?',
+    videoSrc:'https://www.youtube.com/embed/1CR0QmCaMTs',
     solved:false
 },
 ];
