@@ -27,7 +27,7 @@
   <body>
     <div id="map"></div>
     <div id="non-map">
-      <div id="zoom">ZOOM: x<span id="zoomLevel">15</span></div>
+      <div id="zoom">ZOOM: x<span id="zoomLevel"></span></div>
       <!--shows current zoom level-->
       <div class="mouseCoord" id="divMouseCoordLat"></div>
       <!--shows mouse coordinates over the map-->
@@ -41,21 +41,29 @@
           </div>
           <div id="slideDiv-frontSide-image"><!--this is the hero image"shows what to locate on the map-->
             <img id="mainPicture" alt="picture to find" />
+            <img id="mainPictureSolvedOverlay" src='./img/icon/goodAnswer.png' alt="picture has been found!" />
           </div>
           <div id="slideDiv-frontSide-helperQuestion"><!--additional question; if answred it unlocks more details of the job-->
             <p>
-              Ha a feladathoz szükséged van további segítségre, ahhoz előbb meg
+              Ha esetleg szükséged van további segítségre, ahhoz előbb meg
               kell válaszold ezt a kérdést. Ha jó választ adsz, a fenti képre
-              kattintva további segítséget kapsz!
+              kattintva további segítséget kapsz tőlem!
             </p>
-            <label id="helperQuestionLabel" for="helperDropdown"></label><!--3 options to select from; the questions are stored in question.js file-->
-            <select name="helperDropdown" id="helperDropdown">
-              <option hidden disabled selected value>-- válassz! --</option>
-              <option id="option1" value=""></option>
-              <option id="option2" value=""></option>
-              <option id="option3" value=""></option>
-            </select>
-            <img id='selectionFeedbackIcon' src='./img/icon/goodAnswer.png' alt='good answer'><!--little green icon appears if the dropdown selection is correct-->
+            <div id='dropdownDiv'>
+              <label id="helperQuestionLabel" for="helperDropdown"></label><!--3 options to select from; the questions are stored in question.js file-->
+              <select name="helperDropdown" id="helperDropdown">
+                <option hidden disabled selected value>-- válassz! --</option>
+                <option id="option1" value=""></option>
+                <option id="option2" value=""></option>
+                <option id="option3" value=""></option>
+              </select>
+              <img id='selectionFeedbackIcon' src='./img/icon/goodAnswer.png' alt='good answer'><!--little green icon appears if the dropdown selection is correct-->
+            </div>
+
+             <div id='pagingBtnDiv'>
+              <button id='btnGoBack' >vissza</button><!--the buttons cause infinite loop: if they reach the min, the loops goes back to max index nbr-->
+              <button id='btnGoForward'>tovább</button>
+            </div>
           </div>
           <div id="slideDiv-frontSide-clickableEdge"></div><!--clicking on this edge causes the div slide in or out-->
         </div>
