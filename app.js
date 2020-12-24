@@ -9,6 +9,7 @@ const coordBudapest = [47.499, 19.044]; //initial center of the map
 const initialZoomLevel = 15; //intital zoom level of the map
 const showMouseCoordinatesLat = document.querySelector("#divMouseCoordLat"); //div to show mouse coordinate -Latitude
 const showMouseCoordinatesLng = document.querySelector("#divMouseCoordLng"); //div to show mouse coordinate -Longitude
+const mouseCoordPrecision=6;//how many digits to show after comma
 const spanZoomLevel = document.querySelector("#zoomLevel"); //this divs shows the current zoom level on the top of the map
 
 //CREATING A LEAFLET MAP
@@ -77,8 +78,8 @@ map.addEventListener("mousemove", function (e) {
   let mouseLngCoord = e.latlng.lng;
   //show mouse coordinates only inside bounds: if the zoom level of the map is slow, the map will not fill the whole screen; no coordinate will appear where there is no map
   if (Math.abs(mouseLatCoord) < 85 && Math.abs(mouseLngCoord) < 180) {
-    showMouseCoordinatesLat.textContent = `${mouseLatCoord.toFixed(2)}°`;
-    showMouseCoordinatesLng.textContent = `${mouseLngCoord.toFixed(2)}°`;
+    showMouseCoordinatesLat.textContent = `${mouseLatCoord.toFixed(mouseCoordPrecision)}°`;
+    showMouseCoordinatesLng.textContent = `${mouseLngCoord.toFixed(mouseCoordPrecision)}°`;
   } else {
     showMouseCoordinatesLat.textContent = "";
     showMouseCoordinatesLng.textContent = "";
@@ -145,12 +146,14 @@ let counterMainQuestion = 0; //Counter for tracking the main puzzle; data is imp
 let isFlippingUnlocked = false; //answering helper question will unlock this
 let isTargetAddedToMap = false;
 let isThisTheFirstRoundInTheGame = true;
-const zoomTresholdForTargetImage = 4;
+let zoomLevelWhenVisible = mainQuestions[counterMainQuestion].zoomLevelWhenVisible;//treshold for zoom level to show or hide the target picture on the map surface
+const soundEffectWhenPuzzleSolved=new Audio('./sound/Ta Da-Sound.mp3');
 //DEFINING VARIABLES + SELECTING DOM ELEMENTS ENDS-------------------------------------------
 
 //FN:TO SLIDE IN-OUT CARD-------------------------------
 const slidingInAndOut = () => {
   slideDiv.classList.toggle("slideInOut");
+  console.log(slideDiv.classList);
 };
 //FN:TO SLIDE ENDS--------------------------------------
 
@@ -171,7 +174,7 @@ const helperQuestionLoading = () => {
   let randomHelperQuestion = RandomGenerator(0, helperQuestions.length);
   //assigning values to dropdown list
   helperQuestionLabel.textContent =
-    helperQuestions[randomHelperQuestion].question; //assigning helper question from questions.js via import
+  helperQuestions[randomHelperQuestion].question; //assigning helper question from questions.js via import
   option1.value = helperQuestions[randomHelperQuestion].answ1; //assigning helper question dropdown answer from questions.js via import
   option2.value = helperQuestions[randomHelperQuestion].answ2; //assigning helper question dropdown answer from questions.js via import
   option3.value = helperQuestions[randomHelperQuestion].answ3; //assigning helper question dropdown answer from questions.js via import
@@ -189,14 +192,14 @@ const newPuzzleLoading = () => {
   if (pictureLayer) {
     //the previous target image is removed (if exists)
     pictureLayer.remove(map);
-  }
+  };
 
   if (mainQuestions[counterMainQuestion].solved) {
     //if the user already solved this puzzle, the green check icon appears over the image indicating that the main task is already solved
     mainPictureSolvedOverlay.style.visibility = "visible"; //icon appears
   } else {
     mainPictureSolvedOverlay.style.visibility = "hidden"; //if the puzzle is not solved yet, the greed icon is not visible
-  }
+  };
   helperQuestionLoading(); //helper questions at the bottom of the page. Answering that will unlock the option to flip the card and read more helping information.
 
   //FILL UP THE SLIDING DIV WITH THE CURRENT QUESTION (front and backside as well)
@@ -205,12 +208,14 @@ const newPuzzleLoading = () => {
   backSideTippP.textContent = mainQuestions[counterMainQuestion].tipp; //this is on the backside; assigning question from question.js file
 
   //ADDING IMAGE TO MAP -THE MAIN TASK IS TO LOCATE THIS PICTURE AND CLICK ON IT
+  zoomLevelWhenVisible = mainQuestions[counterMainQuestion].zoomLevelWhenVisible;//treshold for zoom level to show or hide the target picture on the map surface
   let pictureSource = mainQuestions[counterMainQuestion].imgSrc; //assigning the current target picture`s URL to a variable
   let pictureBounds = mainQuestions[counterMainQuestion].imgBounds; //assigning the current target picture`s location on map
   pictureLayer = L.imageOverlay(pictureSource, pictureBounds, {
     opacity: 1,
     interactive: true,
   });
+  //this section is temporary: hence the starting zoom level is 15 technically possible to avoid the map.on('zoomend)... code below. To avoid that there is a slight moment when the target image is not handled properly, I rather added this code 
   pictureLayer.addTo(map);
   isTargetAddedToMap === true;
   console.log(`initial image loading: ${pictureSource}`);
@@ -228,8 +233,8 @@ map.on("zoomend", function () {
   //when the zooming scroll finishes, check this:
   if (
     //if the current zoom level >= than the trehsold I set up earlier, and the image is not added yet, then...
-    map.getZoom() >= zoomTresholdForTargetImage &&
-    isTargetAddedToMap === false
+    map.getZoom() >= zoomLevelWhenVisible &&
+    isTargetAddedToMap === false &&pictureLayer
   ) {
     pictureLayer.addTo(map); //the image is added to the map
     console.log("target image is added");
@@ -237,21 +242,26 @@ map.on("zoomend", function () {
 
     pictureLayer.on("click", () => {
       //also add this logic: if image is found and clicked, the sliding div comes into the centre of the screen, and the green check icon appears on top of the image, indicating that the puzzle is solved
-      slidingInAndOut();
+      slideDiv.classList.add("slideInOut");
+      console.log('1')
       setTimeout(() => {
         mainPictureSolvedOverlay.style.visibility = "visible";
-      }, 2000);
+      }, 1700);
       mainQuestions[counterMainQuestion].solved = true; //the current puzzle is set to solved; if this is true, when the user with button clicks navigates himself again, a green icon will be visible on top of the main picture indicating that the puzzle is already solved
+      console.log('sound')
+      soundEffectWhenPuzzleSolved.play();
+      
     });
   }
   if (
     //if the target image is visible, but the zoom level is set to smaller than the treshold, then...
-    map.getZoom() < zoomTresholdForTargetImage &&
+    map.getZoom() < zoomLevelWhenVisible &&
     isTargetAddedToMap === true
   ) {
     pictureLayer.off("click", () => {
       //remove event listener starts here; !!! LATER SIMPLIFY, because this part of the code is duplicated
       slidingInAndOut();
+      console.log('2')
       setTimeout(() => {
         mainPictureSolvedOverlay.style.visibility = "visible";
       }, 2000);
@@ -308,6 +318,7 @@ pagingBtnDiv.addEventListener("click", (e) => {
 the very first main puzzle is loaded by clicking on the visible vertical edge of the sliding card*/
 slideDivFrontSideClickableEdge.addEventListener("click", (e) => {
   slidingInAndOut(); //move the card from the hidden position to the centre of the screen
+  console.log('3')
   if (
     //if the sliding div is out of the screen and so far there was no previous round before, then...
     slideDiv.classList.contains("slideInOut") &&
