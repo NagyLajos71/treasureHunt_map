@@ -90,6 +90,16 @@ const mainPuzzles=[
     solved:false
 },
 {id:9,
+    task:'A Tiltott Város',
+    taskText:'A Tiltott Város egy palotarendszer, egy azsiai orszag csaszarai es azok udvartartasa elt kozel 500 even keresztul.',
+    imgSrc:'./img/pic/Peking.jpg',
+    imgBounds:[[39.915987, 116.389],[39.911, 116.40]],
+    zoomLevelWhenVisible:10,
+    tipp:'Annyit elárulok erről az országról, ahol rejtőzik  a fénykép, hogy ennek van az ázsiai országnak legnagyobb lélekszámú lakossága az egész világon. A fővárosának a nevét, ahol a Tiltott Varos is található, angolul így írják: B E _ J _ _ G. Mi magyarok egy kicsit másképp ejtjük és írjuk ugyanezt, mégpedig így: P _ _ I N G.',
+    videoSrc:'https://www.youtube.com/embed/6eGjDiO7Kzc',
+    solved:false
+},
+{id:10,
     task:'a Titanic roncsai',
     taskText:'A feladatod most az lesz, hogy találj meg egy elsüllyedt hajót az óceán mélyén! Nem kell pánikolni a feladattól, végtére is a bolygó felszínének csupán 2/3-ad részét borítja víz. Mi az neked átnézni ezt a végtelen vízfelületet, nem igaz?',
     imgSrc:'./img/pic/Titanic.jpg',
@@ -99,7 +109,7 @@ const mainPuzzles=[
      videoSrc:'https://www.youtube.com/embed/FSGeskFzE0s',
     solved:false
 },
-{id:10,
+{id:11,
     task:'miért mozog a palackban a víz?',
     taskText:'mert a Hold magához vonnza! Ez lesz az árapályos feladat, amiről korábban beszéltem',
     imgSrc:'./img/pic/bayoffundy.jpg',
@@ -109,7 +119,7 @@ const mainPuzzles=[
     videoSrc:'https://www.youtube.com/embed/TtWsL2hKfsY',
     solved:false
 },
-{id:11,
+{id:12,
     task:'most legyen egy helyszín a Föld déli féltekéről is!',
     taskText:'ugorjunk hát el egy olyan kontintensre, ahol simán eléd ugorhat egy kenguru!',
     imgSrc:'./img/pic/australia_kangaroo.jpg',
@@ -117,6 +127,16 @@ const mainPuzzles=[
     zoomLevelWhenVisible:9,
     tipp:'A kontinens kellős közepén van egy Alice Springs nevű városka, oda rakták ki ezt a táblát. Többet nem is segítek, mert ez alapján a kontinenst is könnyű megtalálni, meg a kellős közepén a varost is. Jó nyomozást!',
     videoSrc:'https://www.youtube.com/embed/Al5DMTjeQwM',
+    solved:false
+},
+{id:13,
+    task:'Rio, a karneváli hangulat, a remek foci és a csodálatos strandok városa',
+    taskText:'most pedig a világ egyik legszebb fekvésű városába megyünk. Irány Rio De Janeiro!',
+    imgSrc:'./img/pic/rio-de-janeiro.jpg',
+    imgBounds:[[-22.8968, -43.168],[-22.959, -43.274]],
+    zoomLevelWhenVisible:9,
+    tipp:'Rio, ahogy rövidítve nevezik, Brazília második legnépesebb városa. Az Atlanti-óceán partján fekszik, festői szépségű hegyekkel körbevéve. Jobb, ha megtanulod, hogyan kell Brazíliát megkeresni a térképen, mert ide meg tervezek többször visszatérni későbbi feladványokban! Most, hogy mar gyakoroltuk a koordinátákat is egy kicsit, Rio-t úgy is megkeresheted a térképen, hogy az egeret beállítod a -23°, -43° koordinátákra. Onnan tudod, hogy körülbelül jó helyen keresgélsz, ha az egér valahol Dél-Amerika tengerpartja fölött van!',
+    videoSrc:'https://www.youtube.com/embed/fA7kQn-l6T4',
     solved:false
 },
 ];

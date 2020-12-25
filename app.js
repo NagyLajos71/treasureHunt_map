@@ -55,9 +55,9 @@ pasztel.addTo(map);
 //ADDING LAYER SELECTION BUTTON
 const layerOptions = L.control.layers({
   pasztel: pasztel,
-  "fekete-feher": fekete_feher,
+  "fekete-fehér": fekete_feher,
   domborzati: domborzati,
-  muholdkep: muholdkep,
+  műholdkép: muholdkep,
 });
 layerOptions.addTo(map);
 
