@@ -36,6 +36,7 @@ h2, p, label{
     font-weight: 900;
     margin:5px;
     padding:5px 10px;
+    border-radius: var(--br15);
     z-index:500;
     box-shadow: var(--boxShadow);
 }
@@ -77,7 +78,7 @@ h2, p, label{
   transform: perspective(600px) rotateY(0deg);
 }
 #slideDiv-backSide{
-  background: var( --bgclr);
+  background-color: var( --bgclr);
   backdrop-filter: var(--blur);
   border-radius: var(--br15);
   transform: perspective(600px) rotateY(180deg);
@@ -93,7 +94,7 @@ h2, p, label{
 #slideDiv-frontSide-header{/*shows the main task to solve*/
   grid-row:1;
   grid-column:1;
-  background: var( --bgclr);
+  background-color: var( --bgclr);
   backdrop-filter: var(--blur);
   border-radius: var(--br15);
 }
@@ -107,7 +108,7 @@ h2, p, label{
   grid-row:3;
   grid-column:1;
   border-radius: var(--br15);
-  background: var( --bgclr);
+  background-color: var( --bgclr);
   backdrop-filter: var(--blur);
   display: grid;
   grid-template-rows: repeat(2, 1fr);
@@ -119,6 +120,10 @@ h2, p, label{
   border-radius: var(--br15);
   outline: none;
   background-color: var(--bgclr2);
+  transition: 1500ms;
+}
+#slideDiv-frontSide-clickableEdge:hover{
+  background-color: var(--bgclr3);
 }
 #mainPicture{
   width:100%;
@@ -174,6 +179,7 @@ h2, p, label{
   border:none;
   outline: none;
   margin:5px;
+  transition: 1000ms;
 }
 #pagingBtnDiv>button:hover{
   background-color: var(--bgclr3);

@@ -1,4 +1,4 @@
-import { mainQuestions, helperQuestions } from "./questions.js"; //all the puzzles are in a separate file
+import { mainPuzzles, helperQuestions } from "./questions.js"; //all the puzzles are in a separate file
 
 /*+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 ++++++++++++++++LEAFLET MAP STARTS HERE++++++++++++++++++++++++++++++++++++
@@ -9,7 +9,7 @@ const coordBudapest = [47.499, 19.044]; //initial center of the map
 const initialZoomLevel = 15; //intital zoom level of the map
 const showMouseCoordinatesLat = document.querySelector("#divMouseCoordLat"); //div to show mouse coordinate -Latitude
 const showMouseCoordinatesLng = document.querySelector("#divMouseCoordLng"); //div to show mouse coordinate -Longitude
-const mouseCoordPrecision=6;//how many digits to show after comma
+const mouseCoordPrecision=0;//how many digits to show after comma
 const spanZoomLevel = document.querySelector("#zoomLevel"); //this divs shows the current zoom level on the top of the map
 
 //CREATING A LEAFLET MAP
@@ -146,7 +146,7 @@ let counterMainQuestion = 0; //Counter for tracking the main puzzle; data is imp
 let isFlippingUnlocked = false; //answering helper question will unlock this
 let isTargetAddedToMap = false;
 let isThisTheFirstRoundInTheGame = true;
-let zoomLevelWhenVisible = mainQuestions[counterMainQuestion].zoomLevelWhenVisible;//treshold for zoom level to show or hide the target picture on the map surface
+let zoomLevelWhenVisible = mainPuzzles[counterMainQuestion].zoomLevelWhenVisible;//treshold for zoom level to show or hide the target picture on the map surface
 const soundEffectWhenPuzzleSolved=new Audio('./sound/Ta Da-Sound.mp3');
 //DEFINING VARIABLES + SELECTING DOM ELEMENTS ENDS-------------------------------------------
 
@@ -173,14 +173,14 @@ const helperQuestionLoading = () => {
   //generating random number to select a helper question
   let randomHelperQuestion = RandomGenerator(0, helperQuestions.length);
   //assigning values to dropdown list
-  helperQuestionLabel.textContent =
+  helperQuestionLabel.innerHTML =
   helperQuestions[randomHelperQuestion].question; //assigning helper question from questions.js via import
   option1.value = helperQuestions[randomHelperQuestion].answ1; //assigning helper question dropdown answer from questions.js via import
   option2.value = helperQuestions[randomHelperQuestion].answ2; //assigning helper question dropdown answer from questions.js via import
   option3.value = helperQuestions[randomHelperQuestion].answ3; //assigning helper question dropdown answer from questions.js via import
-  option1.textContent = helperQuestions[randomHelperQuestion].answ1; //assigning helper question dropdown answer from questions.js via import
-  option2.textContent = helperQuestions[randomHelperQuestion].answ2; //assigning helper question dropdown answer from questions.js via import
-  option3.textContent = helperQuestions[randomHelperQuestion].answ3; //assigning helper question dropdown answer from questions.js via import
+  option1.innerHTML = helperQuestions[randomHelperQuestion].answ1; //assigning helper question dropdown answer from questions.js via import
+  option2.innerHTML = helperQuestions[randomHelperQuestion].answ2; //assigning helper question dropdown answer from questions.js via import
+  option3.innerHTML = helperQuestions[randomHelperQuestion].answ3; //assigning helper question dropdown answer from questions.js via import
   correctHelperAnswer = helperQuestions[randomHelperQuestion].answCorr; //the user`s selection will be matched to this value
   console.log(`helper question index: ${randomHelperQuestion}`);
 };
@@ -194,7 +194,7 @@ const newPuzzleLoading = () => {
     pictureLayer.remove(map);
   };
 
-  if (mainQuestions[counterMainQuestion].solved) {
+  if (mainPuzzles[counterMainQuestion].solved) {
     //if the user already solved this puzzle, the green check icon appears over the image indicating that the main task is already solved
     mainPictureSolvedOverlay.style.visibility = "visible"; //icon appears
   } else {
@@ -203,14 +203,14 @@ const newPuzzleLoading = () => {
   helperQuestionLoading(); //helper questions at the bottom of the page. Answering that will unlock the option to flip the card and read more helping information.
 
   //FILL UP THE SLIDING DIV WITH THE CURRENT QUESTION (front and backside as well)
-  slideDivHeaderH2.textContent = mainQuestions[counterMainQuestion].task; //assigning question from question.js file
-  slideDivHeaderP.textContent = mainQuestions[counterMainQuestion].taskText; //assigning question from question.js file
-  backSideTippP.textContent = mainQuestions[counterMainQuestion].tipp; //this is on the backside; assigning question from question.js file
+  slideDivHeaderH2.textContent = mainPuzzles[counterMainQuestion].task; //assigning question from question.js file
+  slideDivHeaderP.textContent = mainPuzzles[counterMainQuestion].taskText; //assigning question from question.js file
+  backSideTippP.textContent = mainPuzzles[counterMainQuestion].tipp; //this is on the backside; assigning question from question.js file
 
   //ADDING IMAGE TO MAP -THE MAIN TASK IS TO LOCATE THIS PICTURE AND CLICK ON IT
-  zoomLevelWhenVisible = mainQuestions[counterMainQuestion].zoomLevelWhenVisible;//treshold for zoom level to show or hide the target picture on the map surface
-  let pictureSource = mainQuestions[counterMainQuestion].imgSrc; //assigning the current target picture`s URL to a variable
-  let pictureBounds = mainQuestions[counterMainQuestion].imgBounds; //assigning the current target picture`s location on map
+  zoomLevelWhenVisible = mainPuzzles[counterMainQuestion].zoomLevelWhenVisible;//treshold for zoom level to show or hide the target picture on the map surface
+  let pictureSource = mainPuzzles[counterMainQuestion].imgSrc; //assigning the current target picture`s URL to a variable
+  let pictureBounds = mainPuzzles[counterMainQuestion].imgBounds; //assigning the current target picture`s location on map
   pictureLayer = L.imageOverlay(pictureSource, pictureBounds, {
     opacity: 1,
     interactive: true,
@@ -223,7 +223,7 @@ const newPuzzleLoading = () => {
   //ADDING HERO PICTURE TO THE SLIDING DIV- this one shows the user what to look at the map. If the helper question is solved, by clicking on this image reveals the back side of the sliding card
   mainPicture.src = pictureSource;
   //ADDING VIDEO TO THE BACKSIDE OF THE SLIDING DIV
-  teaserVideo.src = mainQuestions[counterMainQuestion].videoSrc;
+  teaserVideo.src = mainPuzzles[counterMainQuestion].videoSrc;
 };
 //FN: LOADING A NEW PUZZLE ENDS-------------------------------------
 
@@ -247,7 +247,7 @@ map.on("zoomend", function () {
       setTimeout(() => {
         mainPictureSolvedOverlay.style.visibility = "visible";
       }, 1700);
-      mainQuestions[counterMainQuestion].solved = true; //the current puzzle is set to solved; if this is true, when the user with button clicks navigates himself again, a green icon will be visible on top of the main picture indicating that the puzzle is already solved
+      mainPuzzles[counterMainQuestion].solved = true; //the current puzzle is set to solved; if this is true, when the user with button clicks navigates himself again, a green icon will be visible on top of the main picture indicating that the puzzle is already solved
       console.log('sound')
       soundEffectWhenPuzzleSolved.play();
       
@@ -265,7 +265,7 @@ map.on("zoomend", function () {
       setTimeout(() => {
         mainPictureSolvedOverlay.style.visibility = "visible";
       }, 2000);
-      mainQuestions[counterMainQuestion].solved = true;
+      mainPuzzles[counterMainQuestion].solved = true;
     }); //remove event listener ends here
 
     pictureLayer.remove(map); //the target image should be removed
@@ -299,11 +299,11 @@ pagingBtnDiv.addEventListener("click", (e) => {
     if (counterMainQuestion > 0) {
       counterMainQuestion--;
     } else {
-      counterMainQuestion = mainQuestions.length - 1;
+      counterMainQuestion = mainPuzzles.length - 1;
     }
   }
   if (e.target.id === "btnGoForward") {
-    if (counterMainQuestion < mainQuestions.length - 1) {
+    if (counterMainQuestion < mainPuzzles.length - 1) {
       counterMainQuestion++;
     } else {
       counterMainQuestion = 0;
